@@ -44,7 +44,7 @@ Untested on:
       ```
     - If you see a version number (e.g. `openjdk version "11.x.xx" xxxx-xx-xx`), you have Java JDK
     - If you see an error, install Java JDK from the link above
-- **Your own Stremio APK file** (download from [stremio.com](https://www.stremio.com/downloads))
+- **Your own Stremio 1.9.5+ APK file** (download from [stremio.com](https://www.stremio.com/downloads))
 
 ---
 
