@@ -21,7 +21,7 @@
   - 🟡 Linux (Untested)
 
 - **Stremio**
-  - v1.9.5 → Latest
+  - v1.9.5 → Latest (1.9.7 at the time of writing)
 
 ---
 
