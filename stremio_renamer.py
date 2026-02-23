@@ -177,7 +177,12 @@ class StremioRenamer:
             else:
                 print(f"Warning: Specified apktool path '{apktool_path}' not found, will try to download or find one")
         
-        # Prefer wrapper script in script directory
+        # Prefer using java -jar with the jar directly (avoids .bat path-with-spaces issues on Windows)
+        jar_path = self.script_dir / "apktool.jar"
+        if jar_path.exists():
+            return ["java", "-jar", str(jar_path)]
+        
+        # Try wrapper script in script directory
         wrapper_name = "apktool.bat" if platform.system().lower() == "windows" else "apktool"
         wrapper_path = self.script_dir / wrapper_name
         if wrapper_path.exists():
@@ -187,11 +192,6 @@ class StremioRenamer:
         apktool_in_path = shutil.which("apktool")
         if apktool_in_path:
             return ["apktool"]
-        
-        # If jar exists in script dir, use java -jar
-        jar_path = self.script_dir / "apktool.jar"
-        if jar_path.exists():
-            return ["java", "-jar", str(jar_path)]
         
         # Download apktool (creates jar + wrapper)
         print("Apktool not found, downloading...")
@@ -492,13 +492,23 @@ java -jar "$(dirname "$0")/apktool.jar" "$@"
         print(f"  - Created: {output_apk}")
         return output_apk
     
+    def _get_apksigner_cmd(self) -> list:
+        """Get apksigner command prefix, preferring java -jar to avoid .bat path issues"""
+        jar_path = self.script_dir / "apksigner.jar"
+        if jar_path.exists():
+            return ["java", "-jar", str(jar_path)]
+        bat_path = self.script_dir / "apksigner.bat"
+        if bat_path.exists():
+            return [str(bat_path)]
+        return None
+
     def _check_apksigner_available(self) -> bool:
         """Check if apksigner is available"""
-        apksigner_path = self.script_dir / "apksigner.bat"
-        if not apksigner_path.exists():
+        cmd = self._get_apksigner_cmd()
+        if not cmd:
             return False
         try:
-            result = subprocess.run([str(apksigner_path), "--version"], 
+            result = subprocess.run(cmd + ["--version"], 
                                   capture_output=True, text=True, timeout=10)
             return result.returncode == 0
         except (subprocess.TimeoutExpired, FileNotFoundError):
@@ -557,8 +567,7 @@ java -jar "$(dirname "$0")/apktool.jar" "$@"
                 # Sign with apksigner
                 print("  - Signing with apksigner...")
                 signed_temp = self.work_dir / f"Stremio_{self.color_name}_signed.apk"
-                apksigner_cmd = [
-                    str(self.script_dir / "apksigner.bat"),
+                apksigner_cmd = self._get_apksigner_cmd() + [
                     "sign",
                     "--ks", str(keystore_path),
                     "--ks-pass", "pass:android",
