@@ -10,7 +10,7 @@ A renamer and recolourer for 'Stremio', mainly used for having multiple accounts
 - Automatically changes the app name and icon colors
 - Lets you pick a color theme (or create your own :o )
 - Rebuilds and signs the APK
-- Works with any Stremio APK (unless they break the formatting)
+- Works with any Stremio Android TV APK (unless they break the formatting)
 
 ---
 
@@ -23,6 +23,13 @@ Untested on:
 - macOS
 - Linux
 - TempleOS
+
+## Version support
+
+Tested on:
+- Stremio 1.9.5 -> Latest
+
+---
 
 ## Requirements
 
@@ -44,7 +51,7 @@ Untested on:
       ```
     - If you see a version number (e.g. `openjdk version "11.x.xx" xxxx-xx-xx`), you have Java JDK
     - If you see an error, install Java JDK from the link above
-- **Your own Stremio 1.9.5+ APK file** (download from [stremio.com](https://www.stremio.com/downloads))
+- **Your own Stremio Android TV APK file** (download from [stremio.com](https://www.stremio.com/downloads))
 
 ---
 
@@ -72,14 +79,14 @@ Untested on:
 python stremio_renamer_gui.py
 ```
 
-1. Select your Stremio APK file
+1. Select your Stremio Android TV APK file
 2. Choose your color theme (or create a custom one)
 3. Click "Build APK" and wait for the new APK
 
 ### Command Line
 
 ```sh
-stremio_renamer.py [-h] [-o OUTPUT] [--custom-color CUSTOM_COLOR] [--hue-shift HUE_SHIFT] [--apktool APKTOOL] apk color
+stremio_renamer_gui.py [-h] [-o OUTPUT] [--custom-color CUSTOM_COLOR] [--hue-shift HUE_SHIFT] [--apktool APKTOOL] apk color
 ```
 
 These arguments are required: `apk`, `color`
@@ -107,7 +114,7 @@ These arguments are required: `apk`, `color`
 - Make sure both Python & Java JDK are installed and added to your PATH.
 - If the APK won't install, enable "Install from unknown sources" on your device.
 - If colors look wrong, try a different hue shift or base color.
-- This tool is only intended for Stremio APKs
+- This tool is only intended for Stremio Android TV APKs
 
 ---
 
