@@ -1,139 +1,156 @@
 # Stremio Renamer
 
-A renamer and recolourer for 'Stremio', mainly used for having multiple accounts on the same device.
-![GUI](assets/gui.png)
+> A renamer and recolourer for 'Stremio', used for having multiple accounts on the same device.
 
----
+<p align="center">
+  <img src="assets/gui.png" alt="GUI Preview" width="600">
+</p>
 
-## What does it do
+## Features
 
-- Automatically changes the app name and icon colors
-- Lets you pick a color theme (or create your own :o )
-- Rebuilds and signs the APK
-- Works with any Stremio Android TV APK (unless they break the formatting)
+- **Different app names** - based on the colour theme you choose
+- **Custom colours** - pick a preset theme or create your own
+- **Automatic rebuild & signing** - outputs a ready-to-install APK
+- **Works with any Stremio Android TV APK** (v1.9.5 and newer)
 
----
+## Compatibility
 
-## OS Support
+- **OS Support**
+  - 🟢 Windows 10 / 11 (Tested)
+  - 🟡 macOS (Untested)
+  - 🟡 Linux (Untested)
 
-Tested on:
-- Windows 10/11
-
-Untested on:
-- macOS
-- Linux
-- TempleOS
-
-## Version support
-
-Tested on:
-- Stremio 1.9.5 -> Latest
+- **Stremio**
+  - v1.9.5 → Latest
 
 ---
 
 ## Requirements
 
-- **Python 3.13 or newer**
-    - [Download Python](https://www.python.org/downloads/)
-    - To check if you have Python installed, open a terminal (Command Prompt or PowerShell) and run:
-      ```
-      python --version
-      ```
-    - If you see a version number (e.g. `Python 3.13.x`), you have Python
-    - If you see an error, install Python from the link above
-    - Ensure Python is added to your Path by selecting `Add python.exe to PATH` on the installer
-    - ![Add to PATH](assets/path.png)
-- **Java JDK** (for signing the APK)
-    - [Download Java JDK](https://adoptium.net/)
-    - To check if you have Java JDK installed, open a terminal (Command Prompt or PowerShell) and run:
-      ```
-      java -version
-      ```
-    - If you see a version number (e.g. `openjdk version "11.x.xx" xxxx-xx-xx`), you have Java JDK
-    - If you see an error, install Java JDK from the link above
-- **Your own Stremio Android TV APK file** (download from [stremio.com](https://www.stremio.com/downloads))
+You need **three things** installed before using this tool:
+
+### 1. Python 3.13 or newer
+
+[**Download Python**](https://www.python.org/downloads/)
+
+> **Important:** During installation, tick the box that says **"Add python.exe to PATH"** - this lets you run Python from any terminal.
+>
+> <img src="assets/path.png" alt="Add to PATH" width="400">
+
+To check if Python is already installed, open **Command Prompt** or **PowerShell** and type:
+
+```
+python --version
+```
+
+If you see something like `Python 3.1x.x`, you're good to go. If you get an error, install it from the link above.
+
+### 2. Java JDK
+
+[**Download Java JDK**](https://adoptium.net/)
+
+To check if Java is already installed, type:
+
+```
+java -version
+```
+
+If you see a version number, you're all set. If not, install it from the link above.
+
+### 3. A Stremio Android TV APK
+
+Download your own copy from [**stremio.com/downloads**](https://www.stremio.com/downloads). This tool does **not** include or distribute any APK files.
 
 ---
 
 ## Installation
 
-1. Click the green <> Code button → Download ZIP or clone this repository
-   - *Extract the ZIP if required*
-2. Open a terminal in the new folder e.g.:
-    ```
-    cd C:\Users\<your username>\Downloads\stremio-renamer-main\stremio-renamer-main
-    ```
-3. Install Python dependencies:
-    ```
-    pip install -r requirements.txt
-    ```
-4. Run the tool (see below)
+1. **Download this project**
+   - Click the green **<> Code** button at the top of this page → **Download ZIP**
+   - Extract the ZIP somewhere you can find it (e.g. your Downloads folder)
+
+2. **Open a terminal in the project folder**
+   - On Windows, you can hold **Shift + Right-click** inside the folder and select **"Open PowerShell window here"**, or open a terminal and navigate manually:
+   ```sh
+   cd C:\Users\YourName\Downloads\stremio-renamer-main\stremio-renamer-main
+   ```
+
+3. **Install the required Python packages**
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+Then you're ready to go!
 
 ---
 
 ## Usage
 
-### Graphical User Interface (Recommended)
+### GUI (Recommended)
+
+The easiest way to use this tool is with the graphical interface:
 
 ```sh
 python stremio_renamer_gui.py
 ```
 
-1. Select your Stremio Android TV APK file
-2. Choose your color theme (or create a custom one)
-3. Click "Build APK" and wait for the new APK
+1. **Select your APK** - browse to the Stremio APK you downloaded.
+2. **Choose a colour** - pick a preset theme or enter a custom colour.
+3. **Click "Build APK"** - wait for the process to finish, and your new APK will be created.
 
 ### Command Line
 
+For advanced users, you can also run the tool directly from the terminal:
+
 ```sh
-stremio_renamer_gui.py [-h] [-o OUTPUT] [--custom-color CUSTOM_COLOR] [--hue-shift HUE_SHIFT] [--apktool APKTOOL] apk color
+python stremio_renamer.py apk color [options]
 ```
 
-These arguments are required: `apk`, `color`
+| Argument | Required | Description |
+|---|:---:|---|
+| `apk` | Yes | Path to your Stremio APK file |
+| `color` | Yes | Colour theme name |
+| `-o OUTPUT` | No | Custom output file path |
+| `--custom-color HEX` | No | Use a custom hex colour (e.g. `#FF5500`) |
+| `--hue-shift VALUE` | No | Shift the hue by a specific amount |
+| `--apktool PATH` | No | Path to a custom apktool |
 
 ---
 
-## What happens?
+## How It Works
 
-1. The tool automatically downloads and sets up **APKTool** (no manual steps needed).
-2. Your APK is decompiled, themed, and rebuilt.
-3. The new APK is signed with a debug key (easy for sideloading).
-
----
-
-## Notes
-
-- **You must provide your own APK file.** This tool does not distribute Stremio or any other APKs.
-- The output APK is signed with a debug key.
-- Only use APKs you have the legal right to modify.
+1. The tool automatically downloads **APKTool** for you - no setup needed.
+2. Your APK is unpacked, the colours and name are changed, and it's rebuilt.
+3. The new APK is signed with a debug key so you can sideload it onto your device.
 
 ---
 
 ## Troubleshooting
 
-- Make sure both Python & Java JDK are installed and added to your PATH.
-- If the APK won't install, enable "Install from unknown sources" on your device.
-- If colors look wrong, try a different hue shift or base color.
-- This tool is only intended for Stremio Android TV APKs
+| Problem | What to do |
+|---|---|
+| `python` or `java` is not recognised | Make sure Python and Java are installed **and added to your PATH** (see [Requirements](#before-you-start)) |
+| The new APK won't install on my device | Enable **"Install from unknown sources"** in your device settings |
+| The colours don't look right | Try a different hue shift value or a different base colour |
+| Something else went wrong | Make sure you're using a **Stremio Android TV** APK - other APKs are not supported |
 
 ---
+
+## Notes
+
+- **You must provide your own APK.** This tool does not include or distribute Stremio.
+- The output APK is signed with a debug key (not a release key).
+- Only modify APKs you have the legal right to modify.
+- `apksigner.jar` and `zipalign.exe` are bundled for convenience - they're needed to rebuild and sign the APK. You're welcome to substitute your own copies.
 
 ## Contributing
 
-Pull requests and issues are welcome.
-
----
+Pull requests and issues are welcome!
 
 ## License
 
-See [LICENSE](LICENSE) for details. This project respects all third-party licenses (see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md)).
-
----
+See [LICENSE](LICENSE) for details. Third-party licences are listed in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md).
 
 ## Disclaimer
 
-This tool modifies APK files. Only use it with APKs you have the right to modify. The authors are not responsible for any misuse of this tool.
-
-apksigner.jar and zipalign.exe are included in this repository for convenience.
-They’re needed to rebuild and sign the APK and come from a trusted source.
-If you’d rather not use the copies we fetch, feel free to get the tools yourself and put them in this folder instead.
+This tool modifies APK files. Only use it with APKs you have the right to modify. The authors are not responsible for any misuse.
