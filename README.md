@@ -76,7 +76,7 @@ Tested on:
 ### Graphical User Interface (Recommended)
 
 ```sh
-python stremio_renamer_gui.py
+python stremio_gui.py
 ```
 
 1. Select your Stremio Android TV APK file
