@@ -133,3 +133,7 @@ See [LICENSE](LICENSE) for details. This project respects all third-party licens
 ## Disclaimer
 
 This tool modifies APK files. Only use it with APKs you have the right to modify. The authors are not responsible for any misuse of this tool.
+
+apksigner.jar and zipalign.exe are included in this repository for convenience.
+They’re needed to rebuild and sign the APK and come from a trusted source.
+If you’d rather not use the copies we fetch, feel free to get the tools yourself and put them in this folder instead.
