@@ -194,7 +194,7 @@ class StremioRenamer:
             raise RuntimeError(f"Failed to download apktool: {e}")
     
     def _download_apktool(self) -> list:
-        """Download apktool for the current platform"
+        """Download apktool for the current platform"""
         system = platform.system().lower()
         
         # Use a known working version
