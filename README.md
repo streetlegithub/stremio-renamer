@@ -3,7 +3,18 @@
 > A renamer and recolourer for 'Stremio', used for having multiple accounts on the same device.
 
 <p align="center">
-  <img src="assets/gui.png" alt="GUI Preview" width="600">
+  <img src="assets/gui.png" alt="GUI Preview" width="600"><br>
+  <sub>The GUI - select your APK and choose a colour theme</sub>
+</p>
+
+<p align="center">
+  <img src="assets/homescreen.png" alt="Homescreen Preview" width="800"><br>
+  <sub>Multiple renamed Stremio instances on your Android TV home screen</sub>
+</p>
+
+<p align="center">
+  <img src="assets/stremio.png" alt="Stremio Preview" width="800"><br>
+  <sub>Each instance runs independently with its own account</sub>
 </p>
 
 ## Features
