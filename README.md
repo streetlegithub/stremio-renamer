@@ -76,7 +76,7 @@ Tested on:
 ### Graphical User Interface (Recommended)
 
 ```sh
-python stremio_gui.py
+python stremio_renamer_gui.py
 ```
 
 1. Select your Stremio Android TV APK file
@@ -86,7 +86,7 @@ python stremio_gui.py
 ### Command Line
 
 ```sh
-stremio_renamer.py [-h] [-o OUTPUT] [--custom-color CUSTOM_COLOR] [--hue-shift HUE_SHIFT] [--apktool APKTOOL] apk color
+stremio_renamer_gui.py [-h] [-o OUTPUT] [--custom-color CUSTOM_COLOR] [--hue-shift HUE_SHIFT] [--apktool APKTOOL] apk color
 ```
 
 These arguments are required: `apk`, `color`
