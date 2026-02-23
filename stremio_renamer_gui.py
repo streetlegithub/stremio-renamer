@@ -4,6 +4,7 @@ Provides a graphical interface for the Stremio APK renaming tool.
 """
 
 import os
+import re
 import sys
 import threading
 import tkinter as tk
@@ -15,12 +16,16 @@ from stremio_renamer import StremioRenamer, COLOR_THEMES, create_custom_theme
 
 
 class RedirectText:
-    """Redirect stdout/stderr to a tkinter Text widget"""
-    def __init__(self, text_widget, tag="stdout"):
+    """Redirect stdout/stderr to a tkinter Text widget (thread-safe via root.after)"""
+    def __init__(self, text_widget, root, tag="stdout"):
         self.text_widget = text_widget
+        self.root = root
         self.tag = tag
 
     def write(self, string):
+        self.root.after(0, self._append, string)
+
+    def _append(self, string):
         self.text_widget.configure(state="normal")
         self.text_widget.insert(tk.END, string, self.tag)
         self.text_widget.see(tk.END)
@@ -326,13 +331,16 @@ class StremioGUI:
         # Handle custom theme
         if color == "custom":
             custom_hex = self.custom_color_var.get().strip()
-            if not custom_hex:
-                messagebox.showerror("Error", "Please enter a custom hex color.")
+            if not custom_hex or not re.match(r'^#?[0-9a-fA-F]{6}$', custom_hex):
+                messagebox.showerror("Error", "Please enter a valid hex color (e.g. #FF5500).")
                 return
             try:
                 hue_shift = int(self.hue_shift_var.get().strip())
             except ValueError:
                 messagebox.showerror("Error", "Hue shift must be an integer (-180 to 180).")
+                return
+            if not -180 <= hue_shift <= 180:
+                messagebox.showerror("Error", "Hue shift must be between -180 and 180.")
                 return
             COLOR_THEMES["custom"] = create_custom_theme("Custom", custom_hex, hue_shift)
 
@@ -351,8 +359,8 @@ class StremioGUI:
         # Redirect stdout/stderr to the log widget
         old_stdout = sys.stdout
         old_stderr = sys.stderr
-        sys.stdout = RedirectText(self.log_text, "stdout")
-        sys.stderr = RedirectText(self.log_text, "stderr")
+        sys.stdout = RedirectText(self.log_text, self.root, "stdout")
+        sys.stderr = RedirectText(self.log_text, self.root, "stderr")
 
         try:
             renamer = StremioRenamer(

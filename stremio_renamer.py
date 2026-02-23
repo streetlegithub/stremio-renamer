@@ -2,12 +2,6 @@
 Stremio APK Renamer & Recolorer
 Automates the process of cloning Stremio with different names and colored icons.
 
-Requirements:
-- Python 3.8+
-- Pillow (pip install Pillow)
-- apktool (automatically downloaded if not found)
-- Java JDK (for jarsigner fallback)
-- apksigner and zipalign (included in this directory)
 """
 
 import os
@@ -18,13 +12,10 @@ import subprocess
 import colorsys
 import platform
 import urllib.request
-import zipfile
-import tarfile
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional
 from dataclasses import dataclass
 from PIL import Image
-import xml.etree.ElementTree as ET
 
 
 @dataclass
@@ -202,8 +193,8 @@ class StremioRenamer:
         except Exception as e:
             raise RuntimeError(f"Failed to download apktool: {e}")
     
-    def _download_apktool(self) -> str:
-        """Download apktool for the current platform"""
+    def _download_apktool(self) -> list:
+        """Download apktool for the current platform"
         system = platform.system().lower()
         
         # Use a known working version
@@ -225,14 +216,10 @@ class StremioRenamer:
         # Create the appropriate wrapper script
         if system == "windows":
             script_path = self.script_dir / "apktool.bat"
-            script_content = f'''@echo off
-java -jar "%~dp0apktool.jar" %*
-'''
+            script_content = '@echo off\njava -jar "%~dp0apktool.jar" %*\n'
         else:  # Unix-like systems
             script_path = self.script_dir / "apktool"
-            script_content = f'''#!/bin/bash
-java -jar "$(dirname "$0")/apktool.jar" "$@"
-'''
+            script_content = '#!/bin/bash\njava -jar "$(dirname "$0")/apktool.jar" "$@"\n'
         
         print(f"Creating apktool wrapper script...")
         with open(script_path, 'w') as f:

@@ -129,7 +129,7 @@ python stremio_renamer.py apk color [options]
 
 | Problem | What to do |
 |---|---|
-| `python` or `java` is not recognised | Make sure Python and Java are installed **and added to your PATH** (see [Requirements](#before-you-start)) |
+| `python` or `java` is not recognised | Make sure Python and Java are installed **and added to your PATH** (see [Requirements](#requirements)) |
 | The new APK won't install on my device | Enable **"Install from unknown sources"** in your device settings |
 | The colours don't look right | Try a different hue shift value or a different base colour |
 | Something else went wrong | Make sure you're using a **Stremio Android TV** APK - other APKs are not supported |

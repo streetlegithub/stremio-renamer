@@ -1,6 +1,17 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*.pyo
+
+# Distribution / packaging
+*.egg-info/
+dist/
+build/
+*.spec
+
+# Tool output
+output/
+debug.keystore
 
 # apktool executables and jars
 apktool.bat
