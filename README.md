@@ -32,7 +32,7 @@
   - 🟡 Linux (Untested)
 
 - **Stremio**
-  - v1.9.5 → Latest (1.9.10 at the time of writing)
+  - v1.9.5 → Latest (1.9.8 at the time of writing)
 
 ---
 
