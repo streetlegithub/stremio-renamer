@@ -17,6 +17,10 @@
   <sub>Each instance runs independently with its own account</sub>
 </p>
 
+## Support
+
+If you have issues or believe you've found a bug, **please** reach out to me on Discord (my username is streetle) or make a Github Issue.
+
 ## Features
 
 - **Different app names** - based on the colour theme you choose
